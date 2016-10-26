@@ -1,49 +1,79 @@
+/*
+Olá!
+Eu tinha dito que queria que vocês implementassem o método de Gram-Schmidt.
+Então eis como eu o quero:
+-Entrada:
+Deve ler o arquivo texto ortogonaliza.txt que terá as sete linhas como abaixo
+//Estes são os vetores que devem ser usados
+(1,2,3,4,5)
+(1,2,3,4,4)
+(1,1,3,4,3)
+(1,1,2,4,2)
+(1,1,1,1,1)
+Fim do arquivo
+-Saída: deve me apresentar o resultado do processo no mesmo arquivo lido, logo abaixo da linha "fim do arquivo".
+Observações.
+- O arquivo pode ter, eventualmente, vetores que não formam uma base.
+  O programa deve decidir antes, se os vetores lidos são LI (se não forem, o que acontece com o programa?)
+- Eu só sei compilar em C e no linux.
+  Então seu programa deve ter instruções sobre compilação se você fugir do padrão ou precisar de algo diferente.
+- Você deve apresentar o exercício num arquivo compactado (zipado) com uma pasta contendo o código fonte do programa.
+  Tanto a pasta quanto o arquivo zipado devem conter seu número de matrícula, seu nome e último sobrenome como no exemplo
+  1049374937antonioneri.zip
+O nome do arquivo fonte deve ser programagram.c ou equivalente.
+Me pergunte neste tópico do fórum dúvidas sobre a apresentação.
+Até logo.
+*/
 import java.io.*;
 import java.util.regex.*;
 public class ProgramaGram{
 
 public static void main(String[] args) throws IOException{
     String caminhoArquivo = args[0];
-    System.out.println("nome do arquivo := " + caminhoArquivo);
+    //System.out.println("nome do arquivo := " + caminhoArquivo);
 
-
-
-        ProgramaGram.leitor(caminhoArquivo);
+    Vetor[] base = new Vetor[5];
+    ProgramaGram.leitor(caminhoArquivo, base);
 
 
 }
 
 
+  public static void projecao(Vetor u, Vetor v){
 
+  
 
-
-public static void leitor(String caminhoArquivo) throws IOException{
-  BufferedReader buffRead = new BufferedReader(new FileReader(caminhoArquivo));
-  String linha = "";
-  String regex = " \\(,\\)";
-  while(true){
-    if (linha != null) {
-      String subLinha[] = linha.split("[" + Pattern.quote(regex) + "]");
-      char charr = ' ';
-
-      for (int i = 0; i < subLinha.length ; i++ ) {
-        System.out.print(subLinha[i]);
-      }
-      System.out.println();
-
-    //  for (int i = 0; i < linha.length() ; i++ ) {
-    //    charr = linha.charAt(i);
-    //    System.out.print(charr);
-    //  }
-      //System.out.println(linha);
-    }else{
-      break;
-
-    }
-    linha = buffRead.readLine();
   }
-  buffRead.close();
-}
 
 
+
+  // metodo que faz a leitura do arquivo e passa-o para a base
+  public static void leitor(String caminhoArquivo, Vetor[] base) throws IOException{
+    BufferedReader buffRead = new BufferedReader(new FileReader(caminhoArquivo));
+    String linha = buffRead.readLine();
+    linha = buffRead.readLine(); // para ficar na linha em que começam os vetores
+    //System.out.println("[" + linha + "]");
+    String regex = "\\(,\\)";
+    double vetor[] = new double[5];
+    int contLinha = 0;
+    while(linha != null){
+      if(contLinha < 5){
+        linha = linha.replaceAll("\\s{1,}","");
+        String newLinha[] = linha.split("[" + Pattern.quote(regex) + "]");
+
+        for (int i=0; i < newLinha.length ; i++) {
+          if(i < newLinha.length-1){
+            vetor[i] = Double.parseDouble(newLinha[i+1]);
+          }
+        }
+        base[contLinha] = new Vetor(vetor);
+        contLinha++;
+        linha = buffRead.readLine();
+      }else{
+        break;
+      }
+    }
+    buffRead.close();
+  }
+  // fim metodo leitor
 }
