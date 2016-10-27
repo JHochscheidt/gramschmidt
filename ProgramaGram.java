@@ -84,10 +84,12 @@ public class ProgramaGram{
       ||ortogonalizacao[3].norma == 0
       ||ortogonalizacao[4].norma == 0
       ){
+        gravarArq.printf("====================================================\n");
         gravarArq.printf("Base informada é LINEARMENTE DEPENDENTE");
       }else{
+        gravarArq.printf("====================================================\n");
+        gravarArq.printf("Espaço euclidiano ortoGONAL\n");
         for (int i=0; i < ortogonalizacao.length; i++) {
-          gravarArq.printf("Espaço euclidiano ortoGONAL\n");
           gravarArq.printf("(");
           for(int j = 0; j < ortogonalizacao[i].vet.length; j++){
             //gravarArq.printf("| %2d X %d = %2d |%n", i, n, (i*n));
@@ -97,9 +99,11 @@ public class ProgramaGram{
             }
           }
           gravarArq.printf(")\n");
+          gravarArq.printf("----------------------------------------------------\n");
         }
+        gravarArq.printf("====================================================\n");
+        gravarArq.printf("Espaço euclidiano ortoNORMAL\n");
         for (int i=0; i < ortogonalizacao.length; i++) {
-          gravarArq.printf("Espaço euclidiano ortoNORMAL\n");
           gravarArq.printf("(");
           for(int j = 0; j < ortogonalizacao[i].vet.length; j++){
             //gravarArq.printf("| %2d X %d = %2d |%n", i, n, (i*n));
@@ -109,6 +113,7 @@ public class ProgramaGram{
             }
           }
           gravarArq.printf(")\n");
+          gravarArq.printf("----------------------------------------------------\n");
         }
       }
     arq.close();
